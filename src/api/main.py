@@ -45,7 +45,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Hello Microsoft AI Tour - Contoso Chat API"}
 
 
 @app.post("/api/create_response")

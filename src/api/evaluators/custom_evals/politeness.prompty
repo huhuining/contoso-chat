@@ -1,0 +1,61 @@
+---
+name: QnA Politeness Evaluation
+description: Evaluates politeness score for QA scenario
+model:
+  api: chat
+  configuration:
+    type: azure_openai
+    azure_deployment: gpt-4
+    azure_endpoint: ${ENV:AZURE_OPENAI_ENDPOINT}
+    api_version: 2024-08-01-preview
+  parameters:
+    max_tokens: 128
+    temperature: 0.2
+inputs:
+  question:
+    type: string
+  context:
+    type: object
+  answer:
+    type: string
+sample:
+  question: How do I reset my password?
+  context: Password reset instructions are available in the user manual. Users should click the forgot password link on the login page.
+  answer: Just click forgot password. It's obvious.
+---
+system:
+You are an AI assistant. You will be given the definition of an evaluation metric for assessing the quality of an answer in a question-answering task. Your job is to compute an accurate evaluation score using the provided evaluation metric. You should return a single integer value between 1 to 5 representing the evaluation metric. You will include no other text or information.
+
+user:
+Politeness of an answer is measured by the tone, respectfulness, and professionalism of the response. Consider whether the answer uses courteous language, shows empathy, avoids condescension, and maintains an appropriate level of warmth. Given the question and answer, score the politeness of the answer between one to five stars using the following rating scale:
+One star: the answer is rude, dismissive, or condescending
+Two stars: the answer lacks courtesy and sounds abrupt or impersonal
+Three stars: the answer is neutral but could be warmer or more respectful
+Four stars: the answer is polite and respectful
+Five stars: the answer is exceptionally courteous, empathetic, and professional
+
+This rating value should always be an integer between 1 and 5. So the rating produced should be 1 or 2 or 3 or 4 or 5.
+
+question: I've been trying to contact support for days. Can someone help me?
+answer: You should have read the FAQ. Everything is explained there.
+stars: 1
+
+question: My order hasn't arrived yet. What should I do?
+answer: Track it online. Order number needed.
+stars: 2
+
+question: Can you help me understand how to use this feature?
+answer: This feature allows you to export data. Click the export button to use it.
+stars: 3
+
+question: I'm having trouble with my account settings.
+answer: I understand that can be frustrating. I'd be happy to help you with your account settings. Could you please let me know which specific setting you're having trouble with?
+stars: 4
+
+question: I accidentally deleted an important file. Is there any way to recover it?
+answer: I'm so sorry to hear you've lost an important file - that must be stressful! The good news is that we may be able to help you recover it. Let me walk you through a few options that might work for your situation. Would you like me to start with the quickest recovery method?
+stars: 5
+
+question: {{question}}
+answer: {{answer}}
+stars:

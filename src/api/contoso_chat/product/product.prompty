@@ -46,7 +46,8 @@ to generate the queries.
 
 # Output format
 Only output the full array of specialized queries to make to the search index. Limit
-yoursef to 5 queries.
+yoursef to 5 queries. Return raw JSON only (no markdown, no code fences, no prose); the
+output must be a valid JSON array starting with '[' and nothing else.
 
 user:
 {{context}}

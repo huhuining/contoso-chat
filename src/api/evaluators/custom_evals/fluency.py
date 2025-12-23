@@ -12,7 +12,6 @@ import os
 # add console and json tracer:
 # this only has to be done once
 # at application startup
-Tracer.add("console", console_tracer)
 json_tracer = PromptyTracer()
 Tracer.add("PromptyTracer", json_tracer.tracer)
 
